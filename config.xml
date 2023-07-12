@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>ALMA_NCIP_Lending_Client</Name>
+  <Author>Bill Jones, SUNY Geneseo; Kurt Munson, Northwestern University Libraries (Modified by Matt Niehoff)</Author>
+  <Version>1.0.1</Version>
+  <Active>True</Active>
+  <Type>System</Type>
+  <Description>This system level addon allows for ILLiad to communicate with Alma via NCIP to update lending requests in Alma.</Description>
+  <Forms />
+  <Settings>
+    <Setting name="NCIP_Responder_URL" value="https://suny-gen.alma.exlibrisgroup.com/view/NCIPServlet" type="string">
+      <Description>This setting value is the address for the NCIP Responder URL. It is your Alma server,i.e., na01.alma.exlibrisgroup.com/view/NCIPServlet, na02.alma.exlibrisgroup.com/view/NCIPServlet.</Description>
+    </Setting>
+    <Setting name="acceptItem_from_uniqueAgency_value" value="01SUNY_GEN" type="string">
+      <Description>This is your institutional Alma Code.</Description>
+    </Setting>
+    <Setting name="ApplicationProfileType" value="ILL" type="string">
+      <Description>Input the Resource Sharing Partner code used in Alma.</Description>
+    </Setting>
+    <Setting name="LendingCheckOutItemFailQueue" value="NCIP Error: LendingCheckOutItem Failed" type="string">
+      <Description>This designates the name of the queue a Lending Transaction will be moved to if the CheckOutItem function fails.</Description>
+    </Setting>
+    <Setting name="LendingCheckInItemFailQueue" value="NCIP Error: LendingCheckInItem Failed" type="string">
+      <Description>This designates the name of the queue a Lending Transaction will be moved to if the CheckInItem function fails.</Description>
+    </Setting>
+  </Settings>
+  <Files>
+    <File>ILLiad_Alma_NCIP_Lending.lua</File>
+  </Files>
+</Configuration>
