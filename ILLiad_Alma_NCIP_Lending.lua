@@ -1,4 +1,4 @@
---About ALMA_NCIP_Lending_Client 1.1
+--About ALMA_NCIP_Lending_Client 1.2
 --
 --Author:  Bill Jones III, SUNY Geneseo, IDS Project, jonesw@geneseo.edu
 --Modified by: Kurt Munson, Northwestern University, kmunson@northwestern.edu
@@ -58,7 +58,8 @@ function LendingCheckOutItem(transactionProcessedEventArgs)
 	luanet.load_assembly("System");
 	local ncipAddress = Settings.NCIP_Responder_URL;
 
-	local currentTN = GetFieldValue("Transaction", "TransactionNumber");
+    local currentTN_int = GetFieldValue("Transaction", "TransactionNumber");
+	local currentTN = luanet.import_type("System.Convert").ToDouble(currentTN_int);
 	local refnumber = GetFieldValue("Transaction", "ItemInfo3");
 
 	if not hasValue(refnumber) then
@@ -133,7 +134,8 @@ function LendingCheckInItem(transactionProcessedEventArgs)
 	local ncipAddress = Settings.NCIP_Responder_URL;
 	
 	LogDebug("Checking for no barcode");
-	local currentTN = GetFieldValue("Transaction", "TransactionNumber");
+	local currentTN_int = GetFieldValue("Transaction", "TransactionNumber");
+	local currentTN = luanet.import_type("System.Convert").ToDouble(currentTN_int);
 	local refnumber = GetFieldValue("Transaction", "ItemInfo3");
 	if not hasValue(refnumber) then
 		ExecuteCommand("AddNote", {currentTN, "No value in NCIP Barcode Field, NCIP not executed on CheckIn."});
@@ -242,7 +244,7 @@ local trantype = GetFieldValue("Transaction", "ProcessType");
 	if trantype == "Borrowing" then
 		ttype = Settings.checkInItem_Transaction_Prefix .. GetFieldValue("Transaction", "TransactionNumber");
 	elseif trantype == "Lending" then
-		ttype = barcode
+		ttype = barcode;
 	else
 		ttype = Settings.checkInItem_Transaction_Prefix .. GetFieldValue("Transaction", "TransactionNumber");
 	end
