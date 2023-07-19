@@ -2,7 +2,7 @@
 <Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>ALMA_NCIP_Lending_Client</Name>
   <Author>Bill Jones, SUNY Geneseo; Kurt Munson, Northwestern University Libraries (Modified by Matt Niehoff)</Author>
-  <Version>1.1</Version>
+  <Version>1.2</Version>
   <Active>True</Active>
   <Type>System</Type>
   <Description>This system level addon allows for ILLiad to communicate with Alma via NCIP to update lending requests in Alma.</Description>
