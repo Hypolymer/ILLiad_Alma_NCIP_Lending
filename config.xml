@@ -8,11 +8,11 @@
   <Description>This system level addon allows for ILLiad to communicate with Alma via NCIP to update lending requests in Alma.</Description>
   <Forms />
   <Settings>
-    <Setting name="NCIP_Responder_URL" value="https://suny-gen.alma.exlibrisgroup.com/view/NCIPServlet" type="string">
-      <Description>This setting value is the address for the NCIP Responder URL. It is your Alma server,i.e., na01.alma.exlibrisgroup.com/view/NCIPServlet, na02.alma.exlibrisgroup.com/view/NCIPServlet.</Description>
+    <Setting name="NCIP_Responder_URL" value="https://xxx.alma.exlibrisgroup.com/view/NCIPServlet" type="string">
+      <Description>Replace "xxx" with your institution's three letter Alma code. If SUNY, replace "xxx" with "suny-zzz", and replace zzz with your institution's three letter Alma code.</Description>
     </Setting>
-    <Setting name="acceptItem_from_uniqueAgency_value" value="01SUNY_GEN" type="string">
-      <Description>This is your institutional Alma Code.</Description>
+    <Setting name="acceptItem_from_uniqueAgency_value" value="XXX" type="string">
+      <Description>Replace "XXX" with your institution's three letter Alma code.  If SUNY, replace "XXX" with "SUNY_ZZZ", and replace ZZZ with your institution's three letter Alma code.</Description>
     </Setting>
     <Setting name="ApplicationProfileType" value="ILL" type="string">
       <Description>Input the Resource Sharing Partner code used in Alma.</Description>
