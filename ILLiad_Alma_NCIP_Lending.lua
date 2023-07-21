@@ -40,6 +40,9 @@ Settings.checkInItem_Transaction_Prefix = GetSetting("checkInItem_Transaction_Pr
 --checkOutItem settings
 Settings.checkOutItem_RequestIdentifierValue_Prefix = GetSetting("checkOutItem_RequestIdentifierValue_Prefix");
 
+--Change ILLiad field for grabbing the Barcode from ILLiad to send to Alma
+Settings.ILLiad_field_to_get_barcode = GetSetting("ILLiad_field_to_get_barcode");
+
 function Init()	
 	LogDebug("DEBUG -- In INIT");
 	RegisterSystemEventHandler("LendingRequestCheckOut", "LendingCheckOutItem");
@@ -60,13 +63,13 @@ function LendingCheckOutItem(transactionProcessedEventArgs)
 
     local currentTN_int = GetFieldValue("Transaction", "TransactionNumber");
 	local currentTN = luanet.import_type("System.Convert").ToDouble(currentTN_int);
-	local refnumber = GetFieldValue("Transaction", "ItemInfo3");
+	local refnumber = GetFieldValue("Transaction", Settings.ILLiad_field_to_get_barcode);
 
 	if not hasValue(refnumber) then
 			LogDebug("No Barcode Error: ReRouting Transaction");
 			ExecuteCommand("Route", {currentTN, "NCIP Error: LCheckOut-User Ineligible"});
 			LogDebug("Adding Note to Transaction with NCIP Client Error");
-			ExecuteCommand("AddNote", {currentTN, "No barcode added to ItemInfo3 before checkout. Not checked out in Alma."});
+			ExecuteCommand("AddNote", {currentTN, "No barcode added to " .. Settings.ILLiad_field_to_get_barcode .. " before checkout. Not checked out in Alma."});
 			LogDebug("No value in NCIP Barcode Field, NCIP not executed on CheckOut throw to Error.");
 			SaveDataSource("Transaction");
 		do return end
@@ -136,7 +139,7 @@ function LendingCheckInItem(transactionProcessedEventArgs)
 	LogDebug("Checking for no barcode");
 	local currentTN_int = GetFieldValue("Transaction", "TransactionNumber");
 	local currentTN = luanet.import_type("System.Convert").ToDouble(currentTN_int);
-	local refnumber = GetFieldValue("Transaction", "ItemInfo3");
+	local refnumber = GetFieldValue("Transaction", Settings.ILLiad_field_to_get_barcode);
 	if not hasValue(refnumber) then
 		ExecuteCommand("AddNote", {currentTN, "No value in NCIP Barcode Field, NCIP not executed on CheckIn."});
 		LogDebug("No value in NCIP Barcode Field, NCIP not executed on CheckIn.");
@@ -195,12 +198,12 @@ end
 function buildCheckInItemLending()
 local ttype = "";
 local user = GetFieldValue("Transaction", "Username");
-local refnumber = GetFieldValue("Transaction", "ItemInfo3");
+local refnumber = GetFieldValue("Transaction", Settings.ILLiad_field_to_get_barcode);
 local trantype = GetFieldValue("Transaction", "ProcessType");
 	if trantype == "Borrowing" then
 		ttype = Settings.checkInItem_Transaction_Prefix .. GetFieldValue("Transaction", "TransactionNumber");
 	elseif trantype == "Lending" then
-		ttype = GetFieldValue("Transaction", "ItemInfo3");
+		ttype = GetFieldValue("Transaction", Settings.ILLiad_field_to_get_barcode);
 	else
 		ttype = Settings.checkInItem_Transaction_Prefix .. GetFieldValue("Transaction", "TransactionNumber");
 	end
@@ -239,7 +242,7 @@ function buildCheckInItemLending(barcode)
 LogDebug("In buildCheckInItemLending(barcode) " .. barcode)
 local ttype = "";
 local user = GetFieldValue("Transaction", "Username");
---local refnumber = GetFieldValue("Transaction", "ItemInfo3");
+--local refnumber = GetFieldValue("Transaction", Settings.ILLiad_field_to_get_barcode);
 local trantype = GetFieldValue("Transaction", "ProcessType");
 	if trantype == "Borrowing" then
 		ttype = Settings.checkInItem_Transaction_Prefix .. GetFieldValue("Transaction", "TransactionNumber");
@@ -288,7 +291,7 @@ local mn, dy, yr = string.match(df, "(%d+)/(%d+)/(%d+)");
 local mnt = string.format("%02d",mn);
 local dya = string.format("%02d",dy);
 local pseudopatron = 'pseudopatron';
-local refnumber = GetFieldValue("Transaction", "ItemInfo3");
+local refnumber = GetFieldValue("Transaction", Settings.ILLiad_field_to_get_barcode);
 LogDebug("Barcode = " .. refnumber)
 local tn = Settings.checkOutItem_RequestIdentifierValue_Prefix .. GetFieldValue("Transaction", "TransactionNumber");
 local coi = '';
@@ -330,7 +333,7 @@ local mn, dy, yr = string.match(df, "(%d+)/(%d+)/(%d+)");
 local mnt = string.format("%02d",mn);
 local dya = string.format("%02d",dy);
 local pseudopatron = 'pseudopatron';
---local refnumber = GetFieldValue("Transaction", "ItemInfo3");
+--local refnumber = GetFieldValue("Transaction", Settings.ILLiad_field_to_get_barcode);
 LogDebug("Barcode = " .. barcode)
 local tn = Settings.checkOutItem_RequestIdentifierValue_Prefix .. GetFieldValue("Transaction", "TransactionNumber");
 local coi = '';
