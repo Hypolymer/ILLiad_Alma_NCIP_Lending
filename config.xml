@@ -18,7 +18,7 @@
       <Description>Input the Resource Sharing Partner code used in Alma.</Description>
     </Setting>
     <Setting name="ILLiad_field_to_get_barcode" value="ItemInfo3" type="string">
-      <Description>This field will be used as the item barcode to be sent to Alma</Description>
+      <Description>This field will be used as the item barcode to be sent to Alma.</Description>
     </Setting>    
     <Setting name="LendingCheckOutItemFailQueue" value="NCIP Error: LendingCheckOutItem Failed" type="string">
       <Description>This designates the name of the queue a Lending Transaction will be moved to if the CheckOutItem function fails.</Description>
