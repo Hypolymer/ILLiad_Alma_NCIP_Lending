@@ -16,8 +16,8 @@ Description of Addon Configuration Settings ([config.xml](https://github.com/Hyp
 | Configuration Value        | Description |
 |:------------- | :-----|
 |NCIP_Responder_URL|The URL used to connect to your Alma NCIP responder. Replace "xxx" with your institution's three letter Alma code. If SUNY, replace "xxx" with "suny-zzz", and replace zzz with your institution's three letter Alma code.|
-|ILLiad_field_to_get_barcode|This field will be used as the item barcode in Alma (the ItemInfo3 field is the default setting).|
 |acceptItem_from_uniqueAgency_value|Replace "XXX" with your institution's three letter Alma code.  If SUNY, replace "XXX" with "SUNY_ZZZ", and replace ZZZ with your institution's three letter Alma code.|
 |ApplicationProfileType|Input the Resource Sharing Partner code used in Alma.  Possible values might be "ILL" or "ILLiad".|
+|ILLiad_field_to_get_barcode|This field will be used as the item barcode in Alma (the ItemInfo3 field is the default setting).|
 |LendingCheckOutItemFailQueue|This designates the name of the queue a Lending Transaction will be moved to if the CheckOutItem function fails. Queue names that do not currently exist will be created automatically.|
 |LendingCheckInItemFailQueue|This designates the name of the queue a Lending Transaction will be moved to if the CheckInItem function fails. Queue names that do not currently exist will be created automatically.|
